@@ -35,7 +35,7 @@ selected_table = None
 global context_window_size
 context_window_size = None
 
-OPENAI_API_KEY = "api-key"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 def get_table_names():
