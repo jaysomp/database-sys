@@ -26,6 +26,7 @@ import re
 
 import psycopg2
 from dotenv import load_dotenv
+from langchain_community.agent_toolkits import create_sql_agent
 
 load_dotenv()
 
@@ -41,10 +42,9 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 def get_table_names():
     try:
         import sqlite3
-        conn = sqlite3.connect('ufc_database.db')
+        conn = sqlite3.connect('ufc_data.db')
         cursor = conn.cursor()
         
-        # Query to get all table names in SQLite
         cursor.execute("""
             SELECT name 
             FROM sqlite_master 
@@ -60,7 +60,6 @@ def get_table_names():
         print(f"Error: {e}")
         return []
     finally:
-        # Close the connection
         if conn:
             cursor.close()
             conn.close()
@@ -74,15 +73,12 @@ def describe_table(table_name: str) -> str:
         conn = sqlite3.connect('ufc_database.db')
         cursor = conn.cursor()
         
-        # Get schema information
         cursor.execute(f"PRAGMA table_info({table_name})")
         columns = cursor.fetchall()
         
-        # Build the description
         description = [f"Table: {table_name}"]
         description.append(f"Schema:")
         
-        # Column details
         for col in columns:
             col_name = col[1]
             col_type = col[2]
@@ -107,6 +103,28 @@ llm = ChatOpenAI(model="gpt-4")
 class Pandasainput(BaseModel):
     query: str = Field(description="should be a query for QA")
 
+class SQLinput(BaseModel):
+    query: str = Field(description="should be a query for QA")
+
+
+
+def multi_table(query):
+    """Use this function to query multiple tables in the SQLite database using SQL agent"""
+    import sqlite3
+    from langchain_community.utilities import SQLDatabase
+    
+    db = SQLDatabase.from_uri("sqlite:///ufc_data.db")
+    
+    agent_executor = create_sql_agent(
+        llm=llm,
+        db=db,
+        agent_type="openai-tools",
+        verbose=True
+    )
+    
+    result = agent_executor.invoke({"input": query})
+    
+    return result["output"]
 
 def pandasai_tool(query):
     """Use this tool when asked questions about a dataset or data. The tool will answer the question using PandasAI. The same user query that is asked to you should be passed to this tool. If the output contains image then grab the file path of the output image and return it in your response"""
@@ -115,7 +133,7 @@ def pandasai_tool(query):
 
     global selected_table
     connector = SqliteConnector(config={
-        "database" : "ufc_database.db",
+        "database" : "ufc_data.db",
         "table" : selected_table 
     })
 
@@ -134,15 +152,22 @@ def pandasai_tool(query):
     return result
 
 
+sql_tool = Tool(
+    name="sql_tool",
+    description="Use this tool when you need to analyze UFC data across multiple tables or perform complex SQL operations. This tool can handle questions about fighter statistics, match outcomes, historical UFC data, and relationships between different aspects of UFC fights. Pass the natural language query directly to this tool.",
+    func=multi_table,
+    args_schema=Pandasainput
+)
+
 pandas_tool = Tool(
     name="pandas_tool",
-    description=f"A tool to use when answering questions about the data. The tool will be used to query the data as well as plotting information from the data. If a file path is returned then you should return the file path in your response. Assume that the required table is selected by the user prior to asking the question do not worry about it. Assume that the table is changing unless being asked a clear follow up question look at this variable as well to see of the table has changed {selected_table} ",
+    description=f"A tool specialized for analyzing and visualizing UFC fight data from the currently selected table ({selected_table}). Use this for creating plots of fighter statistics, analyzing fight outcomes, or getting specific insights from individual UFC data tables. The tool can generate visualizations of fight data and perform statistical analysis. If a file path is returned then you should return the file path in your response. Assume that the required table is selected by the user prior to asking the question. Look at this variable to see if the table has changed: {selected_table}",
     func=pandasai_tool,
     args_schema=Pandasainput
 )
 
 
-tools = [pandas_tool]
+tools = [pandas_tool, sql_tool]
 prompt = hub.pull("hwchase17/react")
 agent = create_react_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
@@ -166,10 +191,9 @@ if not selected_table and table_names:
 selected_table = st.sidebar.selectbox("Select a table to query", table_names, index=table_names.index(selected_table))
 
 if st.session_state.previous_table != selected_table:
-    # Visible message about table change
+
     st.session_state.messages.append({"role": "system", "content": f"Table changed to {selected_table}"})
     
-    # Hidden system message with table description
     table_description = describe_table(selected_table)
     st.session_state.messages.append({"role": "system", "content": table_description, "visible": False})
     
@@ -177,11 +201,28 @@ if st.session_state.previous_table != selected_table:
 
 st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
+st.markdown("""
+    <h1 style='text-align: center; color: #FF4B4B; padding: 20px 0; 
+    border-bottom: 2px solid #FF4B4B; margin-bottom: 30px;'>
+        TKO Analytics
+    </h1>
+    """, 
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+    <p style='text-align: center; color: #666666; margin-bottom: 30px;'>
+        Analyze and Visualize UFC Fight Data
+    </p>
+    """, 
+    unsafe_allow_html=True
+)
+
+
 context_window_size = st.sidebar.slider("Context Window Size", 1, 10, 10)
 
-# Modified message display loop to skip hidden messages
 for message in st.session_state.messages:
-    if message.get("visible", True):  # Show message only if visible flag is True
+    if message.get("visible", True):
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
