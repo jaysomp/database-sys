@@ -1,0 +1,63 @@
+Training accuracy: 94.3%
+Test accuracy: 55.8%
+
+
+Bantamweight
+--------------------------------------------------
+Jonathan Martinez vs Marcus McGhee
+Winner: Marcus McGhee (52% confident)
+
+
+Catch Weight
+--------------------------------------------------
+Mauricio Ruffy vs James Llontop
+Winner: Mauricio Ruffy (78% confident)
+
+
+Heavyweight
+--------------------------------------------------
+Jon Jones vs Stipe Miocic
+Winner: Jon Jones (88% confident)
+
+Marcin Tybura vs Jhonata Diniz
+Winner: Jhonata Diniz (95% confident)
+
+
+Lightweight
+--------------------------------------------------
+Charles Oliveira vs Michael Chandler
+Winner: Charles Oliveira (54% confident)
+
+Jim Miller vs Damon Jackson
+Winner: Damon Jackson (60% confident)
+
+David Onama vs Roberto Romero
+Winner: David Onama (65% confident)
+
+
+Middleweight
+--------------------------------------------------
+Bo Nickal vs Paul Craig
+Winner: Bo Nickal (89% confident)
+
+Chris Weidman vs Eryk Anders
+Winner: Chris Weidman (66% confident)
+
+
+Welterweight
+--------------------------------------------------
+Mickey Gall vs Ramiz Brahimaj
+Winner: Mickey Gall (78% confident)
+
+Bassil Hafez vs Oban Elliott
+Winner: Oban Elliott (61% confident)
+
+
+Women's Flyweight
+--------------------------------------------------
+Viviane Araujo vs Karine Silva
+Winner: Karine Silva (92% confident)
+
+Veronica Hardy vs Eduarda Moura
+Winner: Veronica Hardy (79% confident)
+
