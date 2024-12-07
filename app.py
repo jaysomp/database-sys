@@ -106,6 +106,8 @@ class Pandasainput(BaseModel):
 class SQLinput(BaseModel):
     query: str = Field(description="should be a query for QA")
 
+class FighterInput(BaseModel):
+    matchup: str = Field(description="Fight matchup in format 'Fighter1 vs Fighter2'")
 
 
 def multi_table(query):
@@ -151,6 +153,32 @@ def pandasai_tool(query):
 
     return result
 
+def find_fight(matchup, predictions_file='./prediction/predictions.txt'):
+    """Use this to Predict. Predicts the winner of a UFC fight between two fighters. Pass a natural language query like 'Who would win between Fighter1 and Fighter2' or 'Fighter1 vs Fighter2'."""
+    try:
+        with open(predictions_file, 'r') as f:
+            lines = f.readlines()
+        
+        matchup = matchup.lower().strip()
+        for i, line in enumerate(lines):
+            if matchup == line.lower().strip():
+                weight_class = None
+                for j in range(i-1, -1, -1):
+                    if '---' in lines[j]:
+                        weight_class = lines[j-1].strip()
+                        break
+                
+                return {
+                    'weight_class': weight_class,
+                    'matchup': lines[i].strip(),
+                    'prediction': lines[i + 1].strip()
+                }
+                
+        return {'error': f"No match found for {matchup}"}
+        
+    except FileNotFoundError:
+        return {'error': "Predictions file not found"}
+
 
 sql_tool = Tool(
     name="sql_tool",
@@ -166,8 +194,15 @@ pandas_tool = Tool(
     args_schema=Pandasainput
 )
 
+prediction_tool = Tool(
+    name="fight_prediction",
+    description="Use this to Predict. Predicts the winner of a UFC fight between two fighters. Pass a natural language query like 'Who would win between Fighter1 and Fighter2' or 'Fighter1 vs Fighter2'.",
+    func=find_fight,
+    args_schema=FighterInput
+)
 
-tools = [pandas_tool, sql_tool]
+
+tools = [pandas_tool, sql_tool, prediction_tool]
 prompt = hub.pull("hwchase17/react")
 agent = create_react_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)

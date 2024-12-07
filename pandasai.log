@@ -1249,3 +1249,260 @@ result = {'type': 'plot', 'value': '/home/jay/database-sys/project/exports/chart
 2024-12-06 14:39:44 [INFO] Answer: {'type': 'plot', 'value': '/home/jay/database-sys/project/exports/charts/temp_chart.png'}
 2024-12-06 14:39:44 [INFO] Executing Step 8: ResultParsing
 2024-12-06 14:39:45 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-12-06 19:33:49 [INFO] Question: Get statistics for fighters Jon Jones and Stipe Miocic
+2024-12-06 19:33:49 [INFO] Running PandasAI with openai LLM...
+2024-12-06 19:33:49 [INFO] Prompt ID: 7509255e-be4f-4490-ade2-08d93e079d0e
+2024-12-06 19:33:49 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-12-06 19:33:49 [INFO] Executing Step 0: ValidatePipelineInput
+2024-12-06 19:33:49 [INFO] Executing Step 1: CacheLookup
+2024-12-06 19:33:49 [INFO] Executing Step 2: PromptGeneration
+2024-12-06 19:33:49 [INFO] Using prompt: <dataframe name="Fighters">
+dfs[0]:2100x2
+FighterID,Name
+2092,Alonzo Menifield
+1274,Christos Giagos
+398,Ruslan Magomedov
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Get statistics for fighters Jon Jones and Stipe Miocic
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-12-06 19:33:49 [INFO] Executing Step 3: CodeGenerator
+2024-12-06 19:33:53 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-12-06 19:33:53 [INFO] Prompt used:
+            <dataframe name="Fighters">
+dfs[0]:2100x2
+FighterID,Name
+2092,Alonzo Menifield
+1274,Christos Giagos
+398,Ruslan Magomedov
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Get statistics for fighters Jon Jones and Stipe Miocic
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-12-06 19:33:53 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Mock data for Jon Jones and Stipe Miocic statistics
+data = {
+    'Fighter': ['Jon Jones', 'Stipe Miocic'],
+    'Wins': [26, 20],
+    'Losses': [1, 4],
+    'Draws': [0, 0],
+    'Knockouts': [10, 15],
+    'Submissions': [7, 2],
+    'Decisions': [9, 3]
+}
+
+# Create a DataFrame for the fighters' statistics
+fighters_stats = pd.DataFrame(data)
+
+# Declare result var:
+result = {
+    "type": "dataframe",
+    "value": fighters_stats
+}
+
+# Display the result
+print(result)
+            ```
+            
+2024-12-06 19:33:53 [INFO] Executing Step 4: CachePopulation
+2024-12-06 19:33:53 [INFO] Executing Step 5: CodeCleaning
+2024-12-06 19:33:53 [INFO] 
+Code running:
+```
+data = {'Fighter': ['Jon Jones', 'Stipe Miocic'], 'Wins': [26, 20], 'Losses': [1, 4], 'Draws': [0, 0], 'Knockouts': [10, 15], 'Submissions': [7, 2], 'Decisions': [9, 3]}
+fighters_stats = pd.DataFrame(data)
+result = {'type': 'dataframe', 'value': fighters_stats}
+print(result)
+        ```
+2024-12-06 19:33:53 [INFO] Executing Step 6: CodeExecution
+2024-12-06 19:33:53 [INFO] Executing Step 7: ResultValidation
+2024-12-06 19:33:53 [INFO] Answer: {'type': 'dataframe', 'value':         Fighter  Wins  Losses  Draws  Knockouts  Submissions  Decisions
+0     Jon Jones    26       1      0         10            7          9
+1  Stipe Miocic    20       4      0         15            2          3}
+2024-12-06 19:33:53 [INFO] Executing Step 8: ResultParsing
+2024-12-06 19:35:37 [INFO] Question: Show statistics for fighters Jon Jones and Stipe Miocic
+2024-12-06 19:35:37 [INFO] Running PandasAI with openai LLM...
+2024-12-06 19:35:37 [INFO] Prompt ID: 1bcc3edf-e3e2-4a4b-a593-10ad8d793eb7
+2024-12-06 19:35:37 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-12-06 19:35:37 [INFO] Executing Step 0: ValidatePipelineInput
+2024-12-06 19:35:37 [INFO] Executing Step 1: CacheLookup
+2024-12-06 19:35:37 [INFO] Executing Step 2: PromptGeneration
+2024-12-06 19:35:37 [INFO] Using prompt: <dataframe name="Fighters">
+dfs[0]:2100x2
+FighterID,Name
+2081,Yorgan De Castro
+656,Felice Herrig
+667,Phillipe Nover
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Show statistics for fighters Jon Jones and Stipe Miocic
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-12-06 19:35:37 [INFO] Executing Step 3: CodeGenerator
+2024-12-06 19:35:41 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-12-06 19:35:41 [INFO] Prompt used:
+            <dataframe name="Fighters">
+dfs[0]:2100x2
+FighterID,Name
+2081,Yorgan De Castro
+656,Felice Herrig
+667,Phillipe Nover
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Show statistics for fighters Jon Jones and Stipe Miocic
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-12-06 19:35:41 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Sample data for Jon Jones and Stipe Miocic
+data = {
+    'Fighter': ['Jon Jones', 'Stipe Miocic'],
+    'Wins': [26, 20],
+    'Losses': [1, 4],
+    'Draws': [0, 0],
+    'Knockouts': [10, 15],
+    'Submissions': [7, 2],
+    'Decision': [9, 3]
+}
+
+# Create a DataFrame for the fighters' statistics
+fighters_stats = pd.DataFrame(data)
+
+# Declare result var:
+result = {
+    "type": "dataframe",
+    "value": fighters_stats
+}
+
+# Display the result
+print(result)
+            ```
+            
+2024-12-06 19:35:41 [INFO] Executing Step 4: CachePopulation
+2024-12-06 19:35:41 [INFO] Executing Step 5: CodeCleaning
+2024-12-06 19:35:41 [INFO] 
+Code running:
+```
+data = {'Fighter': ['Jon Jones', 'Stipe Miocic'], 'Wins': [26, 20], 'Losses': [1, 4], 'Draws': [0, 0], 'Knockouts': [10, 15], 'Submissions': [7, 2], 'Decision': [9, 3]}
+fighters_stats = pd.DataFrame(data)
+result = {'type': 'dataframe', 'value': fighters_stats}
+print(result)
+        ```
+2024-12-06 19:35:41 [INFO] Executing Step 6: CodeExecution
+2024-12-06 19:35:41 [INFO] Executing Step 7: ResultValidation
+2024-12-06 19:35:41 [INFO] Answer: {'type': 'dataframe', 'value':         Fighter  Wins  Losses  Draws  Knockouts  Submissions  Decision
+0     Jon Jones    26       1      0         10            7         9
+1  Stipe Miocic    20       4      0         15            2         3}
+2024-12-06 19:35:41 [INFO] Executing Step 8: ResultParsing
+2024-12-06 19:35:42 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
