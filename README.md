@@ -9,6 +9,14 @@ Click the image above to watch the demo video!
 
 ## Features
 
+### Core Features
+- Natural language interaction with UFC fight data
+- Real-time statistical analysis and visualization
+- Machine learning-powered fight predictions
+- Multi-dimensional data exploration
+- Automated insight generation
+- Interactive data visualization
+
 ### Data Analysis
 - Comprehensive UFC fight database updated through November 2024
 - Multi-table query support for complex statistical analysis
@@ -24,6 +32,23 @@ Click the image above to watch the demo video!
 - Interactive dashboard with configurable views
 - Multi-table data exploration capabilities
 - Context-aware follow-up questions
+- Custom table selection interface
+- Real-time query modification
+- Flexible window configuration
+- Historical conversation tracking
+- Integrated visualization panels
+
+### Analysis Capabilities
+- Fight outcome predictions with confidence scores
+- Fighter performance trend analysis
+- Betting odds analysis and probability calculations
+- Head-to-head fighter comparisons
+- Fighting style analysis
+- Win/loss pattern recognition
+- Title fight statistics
+- Performance metrics tracking
+- Historical matchup analysis
+- Round-by-round statistics
 
 ### Technical Capabilities
 - SQL query optimization for complex multi-table analysis
@@ -31,6 +56,53 @@ Click the image above to watch the demo video!
 - Real-time data processing and visualization
 - Machine learning integration for predictive analytics
 - Scalable architecture supporting live data updates
+- Helper functions for optimized LLM context management
+- Hybrid visualization approach for both single and multi-table analysis
+- Token-optimized database schema handling
+
+## Application Design
+
+### Architecture Overview
+```mermaid
+graph TD
+    A[XgBoost Model] --> B[Results]
+    B --> D[Predictions]
+    E[SQLAgent] <-.-> F[Database]
+    G[Tools] --> E
+    G --> H[Pandasai]
+    H <-.-> F
+    I[LLM GPT-4] --> G
+    J[Helper Functions] --> I
+    D <-.-> G
+    J <-.-> F
+```
+
+### Key Components
+
+#### 1. Core Analysis Engine
+- **SQL Query Tool**: Handles complex multi-table queries using LangChain's SQL agent
+- **Visualization Engine**: PandasAI integration for dynamic chart generation
+- **Prediction System**: XGBoost-based model for fight outcome predictions
+- **Data Pipeline**: Optimized for real-time updates and analysis
+
+#### 2. LLM Integration
+- Natural language query parsing
+- Context-aware conversation management
+- Automated query optimization
+- Dynamic response generation
+
+#### 3. Optimization Features
+- Smart caching for frequent queries
+- Token-optimized database schema handling
+- Efficient multi-table join operations
+- Memory-optimized result storage
+
+#### 4. User Interface Components
+- Interactive chat interface
+- Dynamic visualization panel
+- Table selection sidebar
+- Configurable analysis windows
+- Conversation history tracking
 
 ## Database Schema
 
