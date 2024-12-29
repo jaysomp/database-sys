@@ -54,7 +54,7 @@ Click the image above to watch the demo video!
 - Personalized user dashboards
 
 ## Installation
-Repository available at: https://github.com/jaysomp/database-sys
+Repository available at: https://github.com/jaysomp/tko-analytics
 
 ## Authors
 - Jaydeep Sompalli
