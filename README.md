@@ -71,7 +71,7 @@ graph TD
     G[Tools] --> E
     G --> H[Pandasai]
     H <-.-> F
-    I[LLM GPT-4] --> G
+    I[LLM GPT-4] <-.-> G
     J[Helper Functions] --> I
     D <-.-> G
     J <-.-> F
