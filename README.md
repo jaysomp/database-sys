@@ -7,6 +7,43 @@ An advanced UFC analytics platform powered by AI that provides deep insights int
 
 Click the image above to watch the demo video!
 
+## Installation & Usage
+
+### Prerequisites
+- Python 3.10
+- Conda package manager
+- OpenAI API key
+
+### Setup Instructions
+1. Create a new Python 3.10 environment using Conda:
+```bash
+conda create -n tko-analytics python=3.10
+conda activate tko-analytics
+```
+
+2. Clone the repository:
+```bash
+git clone https://github.com/jaysomp/tko-analytics
+cd tko-analytics
+```
+
+3. Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure OpenAI API key:
+   - Create a `.env` file in the project root directory
+   - Add your OpenAI API key:
+   ```
+   OPENAI_API_KEY="your-api-key-here"
+   ```
+
+5. Run the application:
+```bash
+streamlit run app.py
+```
+
 ## Features
 
 ### Core Features
@@ -124,9 +161,6 @@ graph TD
 - Interactive visualization improvements
 - React-based frontend migration
 - Personalized user dashboards
-
-## Installation
-Repository available at: https://github.com/jaysomp/tko-analytics
 
 ## Authors
 - Jaydeep Sompalli
